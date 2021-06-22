@@ -26,7 +26,7 @@ for row in receipt:
 
 lr_list = []
 for i in range(len(trip_id)):
-    temp_dict = {"customer_lr_number":lr_number[i], "trip_consignment_id":trip_id[0]}
+    temp_dict = {"customer_lr_number":lr_number[i], "trip_consignment_id":trip_id[i]}
     lr_list.append(temp_dict)
 
 payload_dict = {"actual_dispatch_date":"2021-05-28", "lr_list":lr_list}

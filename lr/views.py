@@ -8,6 +8,8 @@ import requests
 import json
 import re
 
+l1 = []
+
 def home(request):
 
     return render(request, 'index.html', {"title": "Home"}) 
@@ -75,8 +77,11 @@ def customer(request):
        
         # on clicking search retrieve the value of these 3 var from the template
         customer_name = f"{request.POST['customer_detail']}"
+        l1.append(customer_name)
         sub_branch_name = f"{request.POST['sub-branch']}"
+        l1.append(sub_branch_name)
         booking_date = f"{request.POST['booking-date']}"
+        l1.append(booking_date)
         
         payload_dict = {"customer_name":customer_name,"sub_branch_name": sub_branch_name,"actual_booking_date": booking_date}
         payload = json.dumps(payload_dict) 
@@ -100,14 +105,31 @@ def customer(request):
         customers = requests.get("https://demo2.transo.in/api/trip/getCustomerList").json()["data"]
         customer_list = [x["customer_company"] for x in customers]
 
+        customer_name = l1[0]
+        sub_branch_name = l1[1]
+        booking_date = l1[2]
+        data_dict = {"customer_name":customer_name,"sub_branch_name": sub_branch_name,"actual_booking_date": booking_date}
+        data = json.dumps(data_dict)
+
+        headers = {'content-type': "application/json"}
+        receipt = requests.post("https://demo2.transo.in/api/trip/LrNumberDetails", headers=headers, data = data).json()["data"]
+        lr_number = request.POST['lr_number']
+
+        trip_id = []
+        for row in receipt:
+            if row["customer_lr_number"] in lr_number:
+                trip_id.append(row["trip_consignment_id"])
+
+        lr_list = []
+        for i in range(len(trip_id)):
+            temp_dict = {"customer_lr_number":lr_number[i], "trip_consignment_id":trip_id[i]}
+            lr_list.append(temp_dict)
+
         actual_dispatch_date = "2021-05-28"
         #actual_dispatch_date = request.POST['shipment-date']
 
-        payload_dict = {"actual_dispatch_date":actual_dispatch_date, "lr_list":[
-                        {"customer_lr_number":"TORVI/LR/20/108", "trip_consignment_id":9112},
-                        {"customer_lr_number":"TORVI/LR/20/107", "trip_consignment_id":9110}]}              
+        payload_dict = {"actual_dispatch_date":"2021-05-28", "lr_list":lr_list}             
         payload = json.dumps(payload_dict)
-        headers = {'content-type': "application/json"}
 
         obj = requests.post("https://demo2.transo.in/api/trip/UpdateShipmentDispatchDate", headers=headers, data = payload)
 

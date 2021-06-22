@@ -15,7 +15,7 @@ tr:nth-child(even) {
 }
 
 body {
-    background: #bea2a291;
+    background: #e4d8d891;
     color: #333333;
     margin-top: 5rem;
   }
@@ -97,10 +97,4 @@ body {
   
   .account-heading {
     font-size: 2.5rem;
-  }
-
-  .grid-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-gap: 20px;
   }
