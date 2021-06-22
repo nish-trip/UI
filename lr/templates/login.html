@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+   
+   {% block content %}
+      <form name = "form" action = "{% url 'login' %}" method = "POST" >
+         {% csrf_token %}  
+         
+         <div style = "max-width:470px;">
+            <center> 
+               <input type = "text" style = "margin-left:20%;" placeholder = "username" name = "username" />  
+            </center> 
+         </div> 
+			
+         <br>
+          
+         <div style = "max-width:470px;">
+            <center>
+               <input type = "password" style = "margin-left:20%;" placeholder = "password" name = "password" /> 
+            </center>
+         </div>
+			
+         <br>
+         
+         <div style = "max-width:470px;">
+            <center>  
+            
+               <button style = "border:0px; background-color:#296fdf; margin-top:8%;
+                  height:35px; width:80%;margin-left:19%;" type = "submit" 
+                  value = "Login" >
+                  <strong>Login</strong>
+               </button>
+               
+            </center>
+         </div>
+         
+      </form>
+   {% endblock %}
+

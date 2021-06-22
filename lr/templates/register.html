@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div> 
+  
+    <form action = "{% url 'register' %}" method="POST">
+      {% csrf_token %}
+      <h4 class="text-warning text-center pt-5">Registration Page</h4>
+  
+      <label>
+        <input type="text" class="input" name="email" placeholder="ENTER EMAIL"/>
+          <div class="line-box">
+            <div class="line"></div>
+          </div>
+      </label>
+      <br>
+      <label>
+          <input type="text" class="input" name="username" placeholder="ENTER USERNAME"/> 
+          <div class="line-box">
+            <div class="line"></div>
+          </div>
+      </label>
+      <br>
+      <label>
+          <input type="password" class="input" name="password" placeholder="ENTER PASSWORD"/>
+          <div class="line-box">
+            <div class="line"></div>
+          </div>
+      </label>
+      <br>
+      <label>
+        <input type="password" class="input" name="confirm" placeholder="CONFIRM PASSWORD"/>
+        <div class="line-box">
+          <div class="line"></div>
+        </div>
+      </label>
+      <br>
+      <button type="submit">submit</button>
+    </form>
+  
+</div>
+
+{% endblock %}

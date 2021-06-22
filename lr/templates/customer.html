@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content%}
+
+<form action="{%  url 'customer' %}" method="post"> 
+    {% csrf_token %}
+
+    <div class="grid-container">
+        <div>
+            <label for="sub-branch">Select Sub-Branch :</label> 
+            <select name="sub-branch" id="sub-branch">
+                {% for branch in branch_list %}
+                <option value="{{branch}}"> {{branch}} </option>
+                {% endfor %}
+            </select>
+        </div>
+        <div>
+            <label for="customer_detail">Select Customer :</label>
+            <select name="customer_detail" id="customer_detail">
+                {% for customer in customer_list %}
+                <option value="{{customer}}"> {{customer}} </option>
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+
+    <div>
+        <label for="booking-date">Actual Booking Date: </label>
+        <input type="date" name="booking-date" id="booking-date">
+    </div>
+
+    <input type="submit" name="button" value="search"> <br><br>
+
+</form>
+<hr style="border: 1px solid black;">
+<br>
+
+<form action="{%  url 'customer' %}" method="post"> 
+    {% csrf_token %}
+    <table>
+        <tr>
+            <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">#</th>
+            <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">ID</th>
+            <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">LR Number</th>
+            <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Customer Name</th>
+            <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">origin</th>
+            <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">destination</th>
+            <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Booking Date</th>
+            <th style="border: 1px solid #dddddd; text-align: left; padding: 8px;">Number of boxes</th>
+        </tr>
+    
+        {% for row in receipt_list %}
+        <tr>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"><input type="checkbox" name ="lr_number" value="{{row.customer_lr_number}}"></td>
+
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"> {{row.trip_consignment_id}}  </td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"> {{row.customer_lr_number}}  </td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"> {{row.customer_name}}  </td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"> {{row.source_address_name}}  </td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"> {{row.destination_address_name}}  </td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"> {{row.bookingdatetime}}  </td>
+            <td style="border: 1px solid #dddddd; text-align: left; padding: 8px;"> {{row.no_of_box}} </td>
+        </tr>
+        {% endfor %}
+    </table> 
+    <br><br>
+
+	<label for="shipment-date">Shipment dispatch date: </label>
+	<input type="date" name="shipment-date" id="shipment-date">
+	<br><br>
+
+    <input type="submit" name="button" value="submit">
+    <input type="submit" name="button" value="cancel">
+
+</form>
+
+
+{% endblock %}

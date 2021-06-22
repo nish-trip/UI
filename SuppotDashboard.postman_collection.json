@@ -1,0 +1,70 @@
+{
+	"variables": [],
+	"info": {
+		"name": "SuppotDashboard",
+		"_postman_id": "64957a99-e982-c719-acf7-9d14b2a67b6d",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "https://demo2.transo.in/api/trip/LrNumberDetails",
+			"request": {
+				"url": "https://demo2.transo.in/api/trip/LrNumberDetails", 
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {"customer_name":"AKSHATHA TRANSPORT","sub_branch_name":"Indiranagar","actual_booking_date":"2021-05-28"},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "https://demo2.transo.in/api/trip/UpdateShipmentDispatchDate",
+			"request": {
+				"url": "https://demo2.transo.in/api/trip/UpdateShipmentDispatchDate",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"actual_dispatch_date\":\"2021-05-28\",\n\t\"lr_list\":[\n\t       {\"customer_lr_number\":\"TORVI/LR/20/108\",\n\t       \t\"trip_consignment_id\":9112\n\t       },\n\t       {\"customer_lr_number\":\"TORVI/LR/20/107\",\n\t       \t\"trip_consignment_id\":9110\n\t       }\n\t\t]\n\t\t\n\t\n}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "https://demo2.transo.in/api/trip/getSubBranchList",
+			"request": {
+				"url": "https://demo2.transo.in/api/trip/getSubBranchList",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "https://demo2.transo.in/api/trip/getCustomerList",
+			"request": {
+				"url": "https://demo2.transo.in/api/trip/getCustomerList",
+				"method": "GET",
+				"header": [],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
