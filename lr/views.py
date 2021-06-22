@@ -125,10 +125,10 @@ def customer(request):
             temp_dict = {"customer_lr_number":lr_number[i], "trip_consignment_id":trip_id[i]}
             lr_list.append(temp_dict)
 
-        actual_dispatch_date = "2021-05-28"
-        #actual_dispatch_date = request.POST['shipment-date']
+        #actual_dispatch_date = "2021-05-28"
+        actual_dispatch_date = request.POST['shipment-date']
 
-        payload_dict = {"actual_dispatch_date":"2021-05-28", "lr_list":lr_list}             
+        payload_dict = {"actual_dispatch_date":actual_dispatch_date, "lr_list":lr_list}             
         payload = json.dumps(payload_dict)
 
         obj = requests.post("https://demo2.transo.in/api/trip/UpdateShipmentDispatchDate", headers=headers, data = payload)
