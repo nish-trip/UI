@@ -135,7 +135,7 @@ def customer(request):
 
         if obj.ok:
             print(obj.json()["message"])
-            return redirect('/')
+            return render(request, "customer.html", {"title": "Customer", "branch_list": branch_list, "customer_list": customer_list, "receipt_list": []})
         else:
             print("ERROR while trying to make the changes")
             return render(request, "customer.html", {"title": "Customer", "branch_list": branch_list, "customer_list": customer_list, "receipt_list": []})
