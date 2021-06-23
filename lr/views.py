@@ -95,9 +95,6 @@ def customer(request):
 
     elif request.method == "POST" and request.POST["button"] == "submit":
 
-        '''request.POST = {'csrfmiddlewaretoken': ['qVrPBg4VnzxaAFEzZJfFUBvXhHuROGXorSpPpjvl2X1SPYDKEFKKDDXATVhkiVmX'], 
-        'lr_number': ['TORVI/LR/20/108', 'TORVI/LR/20/109'], 'shipment-date': ['2021-06-24'], 'button': ['submit']}'''
-
         print("submit button clicked",'\n')
 
         branches = requests.get("https://demo2.transo.in/api/trip/getSubBranchList").json()["data"]
@@ -113,7 +110,8 @@ def customer(request):
 
         headers = {'content-type': "application/json"}
         receipt = requests.post("https://demo2.transo.in/api/trip/LrNumberDetails", headers=headers, data = data).json()["data"]
-        lr_number = request.POST['lr_number']
+        q = request.POST
+        lr_number = q.getlist('lr_number')
 
         trip_id = []
         for row in receipt:
