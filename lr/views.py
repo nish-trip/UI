@@ -70,10 +70,17 @@ def customer(request):
 
         print("search button clicked",'\n')
         # passing customer_list and branch_list to customer.html
-        branches = requests.get("https://demo2.transo.in/api/trip/getSubBranchList").json()["data"]
-        branch_list = [x["warehouse_name"] for x in branches]
-        customers = requests.get("https://demo2.transo.in/api/trip/getCustomerList").json()["data"]
-        customer_list = [x["customer_company"] for x in customers]
+        try:
+            branches = requests.get("https://demo2.transo.in/api/trip/getSubBranchList").json()["data"]
+            branch_list = [x["warehouse_name"] for x in branches]
+        except Exception as e:
+            branch_list = []
+        
+        try:
+            customers = requests.get("https://demo2.transo.in/api/trip/getCustomerList").json()["data"]
+            customer_list = [x["customer_company"] for x in customers]
+        except Exception as e:
+            customer_list = []
        
         # on clicking search retrieve the value of these 3 var from the template
         customer_name = f"{request.POST['customer_detail']}"
@@ -97,10 +104,17 @@ def customer(request):
 
         print("submit button clicked",'\n')
 
-        branches = requests.get("https://demo2.transo.in/api/trip/getSubBranchList").json()["data"]
-        branch_list = [x["warehouse_name"] for x in branches]
-        customers = requests.get("https://demo2.transo.in/api/trip/getCustomerList").json()["data"]
-        customer_list = [x["customer_company"] for x in customers]
+        try:
+            branches = requests.get("https://demo2.transo.in/api/trip/getSubBranchList").json()["data"]
+            branch_list = [x["warehouse_name"] for x in branches]
+        except Exception as e:
+            branch_list = []
+        
+        try:
+            customers = requests.get("https://demo2.transo.in/api/trip/getCustomerList").json()["data"]
+            customer_list = [x["customer_company"] for x in customers]
+        except Exception as e:
+            customer_list = []
 
         customer_name = l1[0]
         sub_branch_name = l1[1]
@@ -141,19 +155,32 @@ def customer(request):
     elif request.method == "POST" and request.POST["button"] == "cancel":
 
         print("changes cancelled")
-        branches = requests.get("https://demo2.transo.in/api/trip/getSubBranchList").json()["data"]
-        branch_list = [x["warehouse_name"] for x in branches]
-
-        customers = requests.get("https://demo2.transo.in/api/trip/getCustomerList").json()["data"]
-        customer_list = [x["customer_company"] for x in customers]
+        try:
+            branches = requests.get("https://demo2.transo.in/api/trip/getSubBranchList").json()["data"]
+            branch_list = [x["warehouse_name"] for x in branches]
+        except Exception as e:
+            branch_list = []
+        
+        try:
+            customers = requests.get("https://demo2.transo.in/api/trip/getCustomerList").json()["data"]
+            customer_list = [x["customer_company"] for x in customers]
+        except Exception as e:
+            customer_list = []
         return render(request, "customer.html", {"title": "Refreshed", "branch_list": branch_list, "customer_list": customer_list, "receipt_list": []})
 
     else:
         print("running GET method ")
-        branches = requests.get("https://demo2.transo.in/api/trip/getSubBranchList").json()["data"]
-        branch_list = [x["warehouse_name"] for x in branches]
-
-        customers = requests.get("https://demo2.transo.in/api/trip/getCustomerList").json()["data"]
-        customer_list = [x["customer_company"] for x in customers]
+        try:
+            branches = requests.get("https://demo2.transo.in/api/trip/getSubBranchList").json()["data"]
+            branch_list = [x["warehouse_name"] for x in branches]
+        except Exception as e:
+            branch_list = []
+        
+        try:
+            customers = requests.get("https://demo2.transo.in/api/trip/getCustomerList").json()["data"]
+            customer_list = [x["customer_company"] for x in customers]
+        except Exception as e:
+            customer_list = []
         
         return render(request, "customer.html", {"title": "Customer", "branch_list": branch_list, "customer_list": customer_list, "receipt_list": []})
+
