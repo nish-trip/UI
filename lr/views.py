@@ -95,8 +95,12 @@ def customer(request):
 
         headers = {'content-type': "application/json"}
         # receipt is a list of dictionaries
-        receipt = requests.post("https://demo2.transo.in/api/trip/LrNumberDetails", headers=headers, data = payload).json()["data"]
-        
+        try:
+            receipt = requests.post("https://demo2.transo.in/api/trip/LrNumberDetails", headers=headers, data = payload).json()["data"]
+        except Exception as e:
+            print("ERROR while trying to use the API to get LR details")
+            return render(request, 'index.html', {"title": "Home"})     
+
         return render(request, "customer.html", {"title": "LR", "branch_list": branch_list, "customer_list": customer_list, "receipt_list": receipt})
 
 
@@ -143,7 +147,10 @@ def customer(request):
         payload_dict = {"actual_dispatch_date":actual_dispatch_date, "lr_list":lr_list}             
         payload = json.dumps(payload_dict)
 
-        obj = requests.post("https://demo2.transo.in/api/trip/UpdateShipmentDispatchDate", headers=headers, data = payload)
+        try:
+            obj = requests.post("https://demo2.transo.in/api/trip/UpdateShipmentDispatchDate", headers=headers, data = payload)
+        except Exception as e:
+            print("ERROR while using the update dispatch date API")
 
         if obj.ok:
             print(obj.json()["message"])
@@ -183,4 +190,3 @@ def customer(request):
             customer_list = []
         
         return render(request, "customer.html", {"title": "Customer", "branch_list": branch_list, "customer_list": customer_list, "receipt_list": []})
-
